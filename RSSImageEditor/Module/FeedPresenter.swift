@@ -8,6 +8,7 @@
 import Foundation
 
 protocol IFeedPresenter: AnyObject {
+	func loadData()
 	func viewDidLoad(with viewController: IFeedViewController)
 }
 
@@ -25,11 +26,8 @@ extension FeedPresenter: IFeedPresenter {
 	func viewDidLoad(with viewController: IFeedViewController) {
 		feedViewController = viewController
 		loadData()
-		feedViewController?.fillData(with: feed, images: feedImages)
 	}
-}
 
-private extension FeedPresenter {
 	func loadData() {
 		guard let url = URL(string: StringConstants.sourceURL.rawValue) else {
 			return assertionFailure("couldn't get 'URL' from source 'String'")
@@ -37,5 +35,6 @@ private extension FeedPresenter {
 		let parser = XMLParserManager(with: url)
 		feed = parser.allFeeds()
 		feedImages = parser.allImages()
+		feedViewController?.fillData(with: feed, images: feedImages)
 	}
 }
