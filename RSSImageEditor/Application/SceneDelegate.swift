@@ -16,7 +16,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		guard let window = window else { return assertionFailure() }
 		window.windowScene = windowScene
-		window.rootViewController = ViewController()
+		window.rootViewController = Assembly.initModule()
 		window.makeKeyAndVisible()
 	}
 }

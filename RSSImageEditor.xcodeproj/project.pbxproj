@@ -7,21 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E9D21A325C5523700410F83 /* XMLParserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D21A225C5523700410F83 /* XMLParserManager.swift */; };
 		9ECDE38925C040B90076545F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECDE38825C040B90076545F /* AppDelegate.swift */; };
 		9ECDE38B25C040B90076545F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECDE38A25C040B90076545F /* SceneDelegate.swift */; };
-		9ECDE38D25C040B90076545F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECDE38C25C040B90076545F /* ViewController.swift */; };
 		9ECDE39225C040BE0076545F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ECDE39125C040BE0076545F /* Assets.xcassets */; };
 		9ECDE39525C040BE0076545F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ECDE39325C040BE0076545F /* LaunchScreen.storyboard */; };
+		9ECDE3A725C046ED0076545F /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECDE3A625C046ED0076545F /* FeedViewController.swift */; };
+		9ECDE3AA25C047010076545F /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECDE3A925C047010076545F /* FeedView.swift */; };
+		9ECDE3AD25C047160076545F /* FeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECDE3AC25C047160076545F /* FeedPresenter.swift */; };
+		9ECDE3B025C047DF0076545F /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECDE3AF25C047DF0076545F /* Assembly.swift */; };
+		9ECDE3B425C0585C0076545F /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECDE3B325C0585C0076545F /* FeedCell.swift */; };
+		9ECDE3B725C05E610076545F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECDE3B625C05E610076545F /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E9D21A225C5523700410F83 /* XMLParserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLParserManager.swift; sourceTree = "<group>"; };
 		9ECDE38525C040B90076545F /* RSSImageEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSImageEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ECDE38825C040B90076545F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9ECDE38A25C040B90076545F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9ECDE38C25C040B90076545F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9ECDE39125C040BE0076545F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9ECDE39425C040BE0076545F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9ECDE39625C040BE0076545F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9ECDE3A625C046ED0076545F /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		9ECDE3A925C047010076545F /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
+		9ECDE3AC25C047160076545F /* FeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
+		9ECDE3AF25C047DF0076545F /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
+		9ECDE3B325C0585C0076545F /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		9ECDE3B625C05E610076545F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +66,44 @@
 		9ECDE38725C040B90076545F /* RSSImageEditor */ = {
 			isa = PBXGroup;
 			children = (
+				9ECDE3A025C0466B0076545F /* Application */,
+				9ECDE3A425C046AD0076545F /* Module */,
+				9E9D21A225C5523700410F83 /* XMLParserManager.swift */,
+				9ECDE3A125C046810076545F /* Supporting files */,
+			);
+			path = RSSImageEditor;
+			sourceTree = "<group>";
+		};
+		9ECDE3A025C0466B0076545F /* Application */ = {
+			isa = PBXGroup;
+			children = (
 				9ECDE38825C040B90076545F /* AppDelegate.swift */,
 				9ECDE38A25C040B90076545F /* SceneDelegate.swift */,
-				9ECDE38C25C040B90076545F /* ViewController.swift */,
+				9ECDE3AF25C047DF0076545F /* Assembly.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		9ECDE3A125C046810076545F /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				9ECDE3B625C05E610076545F /* Constants.swift */,
 				9ECDE39125C040BE0076545F /* Assets.xcassets */,
 				9ECDE39325C040BE0076545F /* LaunchScreen.storyboard */,
 				9ECDE39625C040BE0076545F /* Info.plist */,
 			);
-			path = RSSImageEditor;
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		9ECDE3A425C046AD0076545F /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				9ECDE3AC25C047160076545F /* FeedPresenter.swift */,
+				9ECDE3A625C046ED0076545F /* FeedViewController.swift */,
+				9ECDE3A925C047010076545F /* FeedView.swift */,
+				9ECDE3B325C0585C0076545F /* FeedCell.swift */,
+			);
+			path = Module;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,9 +175,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9ECDE38D25C040B90076545F /* ViewController.swift in Sources */,
+				9ECDE3B425C0585C0076545F /* FeedCell.swift in Sources */,
+				9ECDE3AD25C047160076545F /* FeedPresenter.swift in Sources */,
+				9ECDE3B025C047DF0076545F /* Assembly.swift in Sources */,
+				9ECDE3AA25C047010076545F /* FeedView.swift in Sources */,
+				9E9D21A325C5523700410F83 /* XMLParserManager.swift in Sources */,
 				9ECDE38925C040B90076545F /* AppDelegate.swift in Sources */,
+				9ECDE3A725C046ED0076545F /* FeedViewController.swift in Sources */,
 				9ECDE38B25C040B90076545F /* SceneDelegate.swift in Sources */,
+				9ECDE3B725C05E610076545F /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,7 +324,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CRP36LN34R;
-				INFOPLIST_FILE = RSSImageEditor/Info.plist;
+				INFOPLIST_FILE = "RSSImageEditor/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -295,7 +343,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CRP36LN34R;
-				INFOPLIST_FILE = RSSImageEditor/Info.plist;
+				INFOPLIST_FILE = "RSSImageEditor/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
