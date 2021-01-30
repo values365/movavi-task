@@ -49,11 +49,14 @@ final class FeedView: UIView {
 	// MARK: - Public Methods
 
 	func reloadData() {
-		tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableView.ScrollPosition.top, animated: true)
 		DispatchQueue.main.async { [weak self] in
 			guard let self = self else { return assertionFailure("self reference is nil") }
 			self.tableView.reloadData()
 		}
+	}
+
+	func moveToTop() {
+		tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableView.ScrollPosition.top, animated: true)
 	}
 }
 

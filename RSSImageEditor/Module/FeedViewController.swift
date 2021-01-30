@@ -18,10 +18,10 @@ final class FeedViewController: UIViewController {
 
 	var tapButtonHandler: ((FilterType) -> Void)?
 
-	private var currentFilter = FilterType.Default
 	private var presenter: IFeedPresenter
 	private var feed: [String] = []
 	private var images: [String] = []
+	private var UIImages: [UIImage] = []
 
 	// MARK: - Main View
 
@@ -35,8 +35,11 @@ final class FeedViewController: UIViewController {
 		self.presenter.viewDidLoad(with: self)
 		self.tapButtonHandler = { [weak self] filterType in
 			guard let self = self else { return assertionFailure("self is nil") }
-			self.currentFilter = filterType
-			self.feedView.reloadData()
+			DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+				guard let self = self else { return assertionFailure("self reference is nil") }
+				self.filterUIImageCollection(with: filterType)
+				self.feedView.reloadData()
+			}
 		}
 	}
 
@@ -54,6 +57,32 @@ final class FeedViewController: UIViewController {
 	}
 }
 
+// MARK: - Internal Methods
+
+private extension FeedViewController {
+	func fetchUIImageCollection() {
+		for (index, img) in images.enumerated() {
+			guard let url = URL(string: img) else { return assertionFailure("couldn't cast 'String' into 'URL'") }
+			guard let data = try? Data(contentsOf: url) else { return assertionFailure("couldn't fetch data from 'URL'") }
+			guard let image = UIImage(data: data) else { return assertionFailure("couldn't build an 'UIImage' from 'Data'") }
+			UIImages[index] = image
+			self.feedView.reloadData()
+		}
+	}
+
+	func filterUIImageCollection(with filter: FilterType) {
+		for (index, image) in UIImages.enumerated() {
+			UIImages[index] = image.addFilter(filter: filter)
+		}
+	}
+
+	func fillCollection() {
+		for _ in feed.enumerated() {
+			UIImages.append(UIImage(named: "waiting")!)
+		}
+	}
+}
+
 // MARK: - Table View Data Source
 
 extension FeedViewController: UITableViewDataSource {
@@ -63,20 +92,8 @@ extension FeedViewController: UITableViewDataSource {
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: FeedCell.identifier, for: indexPath) as! FeedCell
-		guard let url = URL(string: images[indexPath.row]) else {
-			assertionFailure("couldn't cast 'String' into 'URL'")
-			return cell
-		}
-		guard let data = try? Data(contentsOf: url) else {
-			assertionFailure("couldn't fetch data from 'URL'")
-			return cell
-		}
-		guard let image = UIImage(data: data) else {
-			assertionFailure("couldn't build an 'UIImage' from 'Data'")
-			return cell
-		}
 		cell.setTitle(feed[indexPath.row])
-		cell.setImage(image.addFilter(filter: currentFilter))
+		cell.setImage(UIImages[indexPath.row])
 		return cell
 	}
 }
@@ -90,6 +107,7 @@ extension FeedViewController: UITableViewDelegate {
 			let confirmAction = UIAlertAction(title: "Да", style: .default) { [weak self] action in
 				guard let self = self else { return assertionFailure("self reference is nil") }
 				self.presenter.loadData()
+				self.feedView.moveToTop()
 				self.feedView.reloadData()
 			}
 
@@ -107,5 +125,10 @@ extension FeedViewController: IFeedViewController {
 	func fillData(with feed: [String], images: [String]) {
 		self.feed = feed
 		self.images = images
+		fillCollection()
+		DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+			guard let self = self else { return assertionFailure("self reference is nil") }
+			self.fetchUIImageCollection()
+		}
 	}
 }
