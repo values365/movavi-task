@@ -8,12 +8,17 @@
 import UIKit
 
 protocol IFeedViewController: AnyObject {
+	var tapButtonHandler: ((FilterType) -> Void)? { get set }
 	func fillData(with feed: [String], images: [String])
 }
 
 final class FeedViewController: UIViewController {
 
 	// MARK: - Properties
+
+	private var currentFilter = FilterType.Default
+
+	var tapButtonHandler: ((FilterType) -> Void)?
 
 	private var presenter: IFeedPresenter
 	private var feed: [String] = []
@@ -29,6 +34,11 @@ final class FeedViewController: UIViewController {
 		self.presenter = presenter
 		super.init(nibName: nil, bundle: nil)
 		self.presenter.viewDidLoad(with: self)
+		self.tapButtonHandler = { [weak self] filterType in
+			guard let self = self else { return assertionFailure("self is nil") }
+			self.currentFilter = filterType
+			self.feedView.reloadData()
+		}
 	}
 
 	required init?(coder: NSCoder) {
@@ -40,6 +50,7 @@ final class FeedViewController: UIViewController {
 	override func loadView() {
 		self.view = feedView
 		feedView.tableViewDataSource = self
+		feedView.delegate = self
 	}
 }
 
@@ -65,7 +76,7 @@ extension FeedViewController: UITableViewDataSource {
 			return cell
 		}
 		cell.setTitle(feed[indexPath.row])
-		cell.setImage(image)
+		cell.setImage(image.addFilter(filter: currentFilter))
 		return cell
 	}
 }

@@ -17,6 +17,9 @@ enum Constants: CGFloat {
 	case imageHeight = 150
 	case imageWidth = 200
 	case imageCornerRadius = 10
+
+	case buttonsViewHeight = 52
+	case buttonWidthMultiplier = 0.33
 }
 
 enum StringConstants: String {
