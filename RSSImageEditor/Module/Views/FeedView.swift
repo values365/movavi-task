@@ -56,7 +56,10 @@ final class FeedView: UIView {
 	}
 
 	func moveToTop() {
-		tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableView.ScrollPosition.top, animated: true)
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else { return assertionFailure("self reference is nil") }
+			self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableView.ScrollPosition.top, animated: true)
+		}
 	}
 }
 

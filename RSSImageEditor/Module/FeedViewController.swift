@@ -22,6 +22,7 @@ final class FeedViewController: UIViewController {
 	private var feed: [String] = []
 	private var images: [String] = []
 	private var UIImages: [UIImage] = []
+	private var isAllDownloaded = false
 
 	// MARK: - Main View
 
@@ -35,10 +36,17 @@ final class FeedViewController: UIViewController {
 		self.presenter.viewDidLoad(with: self)
 		self.tapButtonHandler = { [weak self] filterType in
 			guard let self = self else { return assertionFailure("self is nil") }
-			DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-				guard let self = self else { return assertionFailure("self reference is nil") }
-				self.filterUIImageCollection(with: filterType)
-				self.feedView.reloadData()
+			if self.isAllDownloaded {
+				DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+					guard let self = self else { return assertionFailure("self reference is nil") }
+					self.filterUIImageCollection(with: filterType)
+					self.feedView.reloadData()
+				}
+			} else {
+				let alert = UIAlertController(title: "Идет загрузка контента", message: "Пожалуйста, подождите пока все фотографии загрузятся, прежде чем применять к ним фильтры.", preferredStyle: .alert)
+				let cancelAction = UIAlertAction(title: "OK", style: .cancel)
+				alert.addAction(cancelAction)
+				self.present(alert, animated: true)
 			}
 		}
 	}
@@ -129,6 +137,7 @@ extension FeedViewController: IFeedViewController {
 		DispatchQueue.global(qos: .userInteractive).async { [weak self] in
 			guard let self = self else { return assertionFailure("self reference is nil") }
 			self.fetchUIImageCollection()
+			self.isAllDownloaded = true
 		}
 	}
 }
