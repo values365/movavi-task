@@ -8,20 +8,20 @@
 import Foundation
 
 final class XMLParserManager: NSObject, XMLParserDelegate {
-
+	
 	// MARK: - Properties
-
+	
 	private var parser = XMLParser()
 	private var feeds: [String] = []
 	private var img: [String] = []
 	private var element = ""
 	private var title = ""
-
+	
 	init(with url: URL) {
 		super.init()
 		startParsing(url)
 	}
-
+	
 	private func startParsing(_ url: URL) {
 		feeds = []
 		guard let parser = XMLParser(contentsOf: url) else {
@@ -33,15 +33,15 @@ final class XMLParserManager: NSObject, XMLParserDelegate {
 		parser.shouldResolveExternalEntities = false
 		parser.parse()
 	}
-
+	
 	// MARK: - Public Methods
-
+	
 	func allFeeds() -> [String] { feeds }
-
+	
 	func allImages() -> [String] { img }
-
+	
 	// MARK: - XMLParserDelegate
-
+	
 	func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
 		element = elementName
 		if element.isEqual("item") {
@@ -52,7 +52,7 @@ final class XMLParserManager: NSObject, XMLParserDelegate {
 			}
 		}
 	}
-
+	
 	func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
 		if (elementName as NSString).isEqual(to: "item") {
 			if title != "" {
@@ -60,7 +60,7 @@ final class XMLParserManager: NSObject, XMLParserDelegate {
 			}
 		}
 	}
-
+	
 	func parser(_ parser: XMLParser, foundCharacters string: String) {
 		if element.isEqual("title") {
 			title.append(string)
